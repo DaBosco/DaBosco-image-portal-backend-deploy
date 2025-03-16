@@ -10,8 +10,8 @@ const imagesDataFile = path.join(__dirname, 'images-data.json');
 // Directory where images are copied for public access.
 const publicImagesDir = path.join(__dirname, 'public', 'images');
 
-// Reset image data to an empty array on server startup.
-fs.writeFileSync(imagesDataFile, JSON.stringify([]));
+// Reset image data to an empty array on server startup.     CHANGE 1
+// fs.writeFileSync(imagesDataFile, JSON.stringify([]));
 
 // GraphQL type definitions.
 const typeDefs = gql`
@@ -68,7 +68,7 @@ const resolvers = {
                     imagesData[imageIndex].likes++;
                 }
             }
-            fs.writeFileSync(imagesDataFile, JSON.stringify(imagesData));
+            //fs.writeFileSync(imagesDataFile, JSON.stringify(imagesData)); CHANGE 2
             return resolvers.Query.images().find((img) => img.id === id);
         },
         // Resolver to mark or unmark an image as featured.
@@ -85,7 +85,7 @@ markFeatured: (_, { id }) => {
     }
     
     // Save changes to file
-    fs.writeFileSync(imagesDataFile, JSON.stringify(imagesData));
+   // fs.writeFileSync(imagesDataFile, JSON.stringify(imagesData)); CHANGE 3
     
     // Return updated image data
     return resolvers.Query.images().find((img) => img.id === id);
