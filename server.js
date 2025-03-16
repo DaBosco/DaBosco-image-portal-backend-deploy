@@ -94,11 +94,18 @@ markFeatured: (_, { id }) => {
 };
 
 // Create Apollo Server instance.
-const server = new ApolloServer({ typeDefs, resolvers, cors: { origin: 'http://localhost:5173', credentials: true } });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  cors: {
+    origin: 'https://esaote.netlify.app', 
+    credentials: true, 
+  },
+});
 
-// Start the server on port 4000.
-server.listen(4000).then(({ url }) => {
-    console.log(`Server ready at ${url}`);
+// Start the server (Vercel will handle the port in serverless).
+server.listen().then(({ url }) => {
+  console.log(`Server ready at ${url}`);
 });
 
 // Create the /public/images directory if it doesn't exist.
